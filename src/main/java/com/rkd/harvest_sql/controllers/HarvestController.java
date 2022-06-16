@@ -5,6 +5,7 @@ import com.rkd.harvest_sql.data.*;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin()
 @RestController
@@ -30,6 +31,11 @@ public class HarvestController
     this.truckRepository = truckRepository;
   }
 
+  @GetMapping("/")
+  public String defaultMap()
+  {
+    return "Default Mapping";
+  }
   @GetMapping("/growers")
   public List<Grower> growers()
   {
@@ -48,10 +54,16 @@ public class HarvestController
     return stateRepository.findAll();
   }
 
-  @GetMapping("trucks")
+  @GetMapping("/trucks")
   public List<Truck> trucks()
   {
     return truckRepository.findAll();
+  }
+
+  @GetMapping("/trucks/{id}")
+  public Optional<Truck> trucksbyid(@PathVariable Integer id)
+  {
+    return truckRepository.findById(id);
   }
 
   @GetMapping("/fieldtruckstates")
